@@ -1,5 +1,6 @@
 require 'fileutils'
 require 'streamio-ffmpeg'
+require 'ruby-progressbar'
 
 class CompressVideo
   attr_accessor :source_folder, :destination_folder, :temp_folder, :file_path, :file_name, :temp_file_path, :destination_file_path
@@ -12,6 +13,7 @@ class CompressVideo
     end
     find_file_to_convert
     define_temporary_and_destination_path
+    @progressbar = ProgressBar.create(title: "Progress", format: '%a %bᗧ%i %p%% %t', progress_mark: ' ', remainder_mark: '･')
   end
 
   def inspect
@@ -35,13 +37,17 @@ class CompressVideo
 
   private
 
+  def temporary_file_present?
+    Dir["#{temp_folder}**/*.mkv"].first.present?
+  end
+
   def find_file_to_convert
     @file_path = Dir["#{source_folder}**/*.mkv"].first || ""
     @file_name = file_path.split(/\//).last || ""
   end
 
   def define_temporary_and_destination_path
-    @temp_file_path = file_path.gsub(source_folder, temp_folder)
+    @temp_file_path = temp_folder + file_name
     @destination_file_path = destination_folder + file_path.gsub(source_folder, "")
   end
 
@@ -57,12 +63,20 @@ class CompressVideo
     FileUtils.mkdir_p temp_file_path.gsub(file_name, "")
   end
 
+  def revert_file_move
+    FileUtils.mv(temp_file_path, file_path)
+  end
+
   def compress_file
     movie = FFMPEG::Movie.new(temp_file_path)
     if(movie.valid?)
-      movie.transcode(destination_file_path, { custom: "-map 0 -c:v libx264 -c:a copy -c:s copy" }) { |progress| puts progress }
+      movie.transcode(destination_file_path, { custom: "-map 0 -c:v libx264 -c:a copy -c:s copy" }) do |progress|
+        progressbar = progress * 100
+      end
     else
-      FileUtils.mv(temp_file_path, file_path)
+      revert_file_move
     end
+  rescue
+    revert_file_move
   end
 end
