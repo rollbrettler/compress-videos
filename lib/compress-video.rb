@@ -60,7 +60,7 @@ class CompressVideo
   def compress_file
     movie = FFMPEG::Movie.new(temp_file_path)
     if(movie.valid?)
-      movie.transcode(destination_file_path, { custom: "-map 0 -c:v libx264 -c:a copy -c:s copy" })
+      movie.transcode(destination_file_path, { custom: "-map 0 -c:v libx264 -c:a copy -c:s copy" }) { |progress| puts progress }
     else
       FileUtils.mv(temp_file_path, file_path)
     end
