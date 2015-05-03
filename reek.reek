@@ -1,0 +1,10 @@
+IrresponsibleModule:
+  exclude:
+    - CompressVideo
+TooManyStatements:
+  exclude:
+    - CompressVideo#compress_file
+    - CompressVideo#inspect
+DuplicateMethodCall:
+  exclude:
+    - CompressVideo#inspect

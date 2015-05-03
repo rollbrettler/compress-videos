@@ -5,12 +5,12 @@ require 'ruby-progressbar'
 class CompressVideo
   attr_accessor :source_folder, :destination_folder, :temp_folder, :file_path, :file_name, :temp_file_path, :destination_file_path
 
-  SEPARATOR_LINE = "==========================================="
+  SEPARATOR_LINE = '==========================================='
 
-  def initialize args
-    args.each do |k,v|
-      instance_variable_set("@#{k}", v) unless v.nil?
-    end
+  def initialize(args = {})
+    @source_folder = args[:source_folder]
+    @destination_folder = args[:destination_folder]
+    @temp_folder = args[:temp_folder]
     find_file_to_convert
     define_temporary_and_destination_path
   end
@@ -43,13 +43,13 @@ class CompressVideo
   end
 
   def find_file_to_convert
-    @file_path = Dir["#{source_folder}**/*.mkv"].first || ""
-    @file_name = file_path.split(/\//).last || ""
+    @file_path = Dir["#{source_folder}**/*.mkv"].first || ''
+    @file_name = file_path.split(/\//).last || ''
   end
 
   def define_temporary_and_destination_path
     @temp_file_path = temp_folder + file_name
-    @destination_file_path = destination_folder + file_path.gsub(source_folder, "")
+    @destination_file_path = destination_folder + file_path.gsub(source_folder, '')
   end
 
   def move_file_to_temp_path
@@ -57,11 +57,11 @@ class CompressVideo
   end
 
   def create_destination_folder
-    FileUtils.mkdir_p destination_file_path.gsub(file_name, "")
+    FileUtils.mkdir_p destination_file_path.gsub(file_name, '')
   end
 
   def create_temp_folder
-    FileUtils.mkdir_p temp_file_path.gsub(file_name, "")
+    FileUtils.mkdir_p temp_file_path.gsub(file_name, '')
   end
 
   def revert_file_move
@@ -69,10 +69,10 @@ class CompressVideo
   end
 
   def compress_file
-    @progressbar = ProgressBar.create(title: "Progress", format: '%a %bᗧ%i %p%% %t', progress_mark: ' ', remainder_mark: '･')
+    @progressbar = ProgressBar.create(title: 'Progress', format: '%a %bᗧ%i %p%% %t', progress_mark: ' ', remainder_mark: '･')
     movie = FFMPEG::Movie.new(temp_file_path)
-    if(movie.valid?)
-      movie.transcode(destination_file_path, { custom: "-map 0 -c:v libx264 -c:a copy -c:s copy" }) do |progress|
+    if movie.valid?
+      movie.transcode(destination_file_path,  custom: '-map 0 -c:v libx264 -c:a copy -c:s copy') do |progress|
         progressbar.progress = progress.to_f * 100
       end
     else

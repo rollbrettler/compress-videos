@@ -4,21 +4,23 @@ require 'fakefs/spec_helpers'
 RSpec.describe CompressVideo do
   include FakeFS::SpecHelpers
 
-  let(:file_array) { file_array = [
-    '/source/_sort/movie/Movie1.mkv',
-    '/source/_sort/movie/Movie2.mkv',
-    '/source/_sort/movie/NotAMovie.jpg'
-  ] }
+  let(:file_array) do
+    [
+      '/source/_sort/movie/Movie1.mkv',
+      '/source/_sort/movie/Movie2.mkv',
+      '/source/_sort/movie/NotAMovie.jpg'
+    ]
+  end
 
-  let(:compress_video) {
-    described_class.new({
+  let(:compress_video) do
+    described_class.new(
       source_folder: '/source/',
       destination_folder: '/destination/',
       temp_folder: '/tmp/'
-    })
-  }
+    )
+  end
 
-  let(:mapper) { double("mapper") }
+  let(:mapper) { double('mapper') }
 
   before(:each) do
     allow(Dir).to receive(:glob).and_return(file_array)
