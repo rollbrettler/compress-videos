@@ -13,10 +13,10 @@ class CompressVideo
     end
     find_file_to_convert
     define_temporary_and_destination_path
-    @progressbar = ProgressBar.create(title: "Progress", format: '%a %bᗧ%i %p%% %t', progress_mark: ' ', remainder_mark: '･')
   end
 
   def inspect
+    puts SEPARATOR_LINE
     puts "Source folder: #{source_folder}"
     puts "Destination folder: #{destination_folder}"
     puts "Temp folder: #{temp_folder}"
@@ -26,6 +26,7 @@ class CompressVideo
     puts SEPARATOR_LINE
     puts "Temporary file path: #{temp_file_path}"
     puts "Destination file path: #{destination_file_path}"
+    puts SEPARATOR_LINE
   end
 
   def run
@@ -68,10 +69,11 @@ class CompressVideo
   end
 
   def compress_file
+    @progressbar = ProgressBar.create(title: "Progress", format: '%a %bᗧ%i %p%% %t', progress_mark: ' ', remainder_mark: '･')
     movie = FFMPEG::Movie.new(temp_file_path)
     if(movie.valid?)
       movie.transcode(destination_file_path, { custom: "-map 0 -c:v libx264 -c:a copy -c:s copy" }) do |progress|
-        progressbar = progress * 100
+        progressbar.progress = progress.to_f * 100
       end
     else
       revert_file_move
