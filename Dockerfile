@@ -26,7 +26,12 @@ RUN mkdir ~/ffmpeg_sources \
     && make \
     && make install \
     && make distclean \
-    && hash -r
+    && hash -r \
+    && rm -rf ~/ffmpeg_sources
+
+RUN apt-get purge --assume-yes --quiet --force-yes wget yasm autoconf automake build-essential libass-dev \
+    libfreetype6-dev libgpac-dev libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev \
+    libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev pkg-config texi2html zlib1g-dev libx264-dev libmp3lame-dev
 
 ADD . /
 
