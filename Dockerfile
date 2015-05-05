@@ -9,9 +9,9 @@ RUN apt-get install --assume-yes --quiet --force-yes wget yasm autoconf automake
 
 RUN mkdir ~/ffmpeg_sources \
     && cd ~/ffmpeg_sources \
-    && wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2 \
-    && tar xjvf ffmpeg-snapshot.tar.bz2 >/dev/null 2>&1 \
-    && cd ffmpeg \
+    && wget http://ffmpeg.org/releases/ffmpeg-2.6.2.tar.bz2 \
+    && tar xjvf ffmpeg-2.6.2.tar.bz2 >/dev/null 2>&1 \
+    && cd ffmpeg-2.6.2 \
     && ./configure \
       --pkg-config-flags="--static" \
       --bindir="/usr/bin" \
@@ -37,7 +37,7 @@ ADD . /
 
 RUN chmod +x /run.rb
 
-RUN gem install bundler
+RUN gem install bundler --without test
 RUN bundle install
 
 VOLUME ["/source", "/destination", "/tmp"]
