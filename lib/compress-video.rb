@@ -3,7 +3,7 @@ require 'streamio-ffmpeg'
 require 'ruby-progressbar'
 
 class CompressVideo
-  attr_accessor :source_folder, :destination_folder, :temp_folder, :file_path, :file_name, :temp_file_path, :destination_file_path
+  attr_reader :source_folder, :destination_folder, :temp_folder, :file_path, :file_name, :temp_file_path, :destination_file_path
 
   SEPARATOR_LINE = '==========================================='
 
