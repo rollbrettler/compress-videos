@@ -3,7 +3,13 @@ require 'streamio-ffmpeg'
 require 'ruby-progressbar'
 
 class CompressVideo
-  attr_reader :source_folder, :destination_folder, :temp_folder, :file_path, :file_name, :temp_file_path, :destination_file_path
+  attr_reader :source_folder,
+              :destination_folder,
+              :temp_folder,
+              :file_path,
+              :file_name,
+              :temp_file_path,
+              :destination_file_path
 
   SEPARATOR_LINE = '==========================================='
 
@@ -68,8 +74,17 @@ class CompressVideo
     FileUtils.mv(temp_file_path, file_path)
   end
 
+  def progress_bar_settings
+    {
+      title: 'Progress',
+      format: '%a %bᗧ%i %p%% %t',
+      progress_mark: ' ',
+      remainder_mark: '･'
+    }
+  end
+
   def compress_file
-    @progressbar = ProgressBar.create(title: 'Progress', format: '%a %bᗧ%i %p%% %t', progress_mark: ' ', remainder_mark: '･')
+    @progressbar = ProgressBar.create(progress_bar_settings)
     movie = FFMPEG::Movie.new(temp_file_path)
     if movie.valid?
       movie.transcode(destination_file_path,  custom: '-map 0 -c:v libx264 -c:a copy -c:s copy') do |progress|
