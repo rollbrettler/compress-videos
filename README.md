@@ -1,5 +1,7 @@
 Automatically convert videos from a given folder to a destination folder.
 
+![Build status](https://travis-ci.org/rollbrettler/convert-videos.svg)
+
 ## Build
 ```
 rake build
