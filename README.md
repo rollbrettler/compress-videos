@@ -1,6 +1,6 @@
 Automatically convert videos from a given folder to a destination folder.
 
-[![Build Status](https://magnum.travis-ci.com/rollbrettler/convert-videos.svg?token=pWzEJyUz6593xzWqiejy)](https://magnum.travis-ci.com/rollbrettler/convert-videos)
+[![Build Status](https://travis-ci.org/rollbrettler/convert-videos.svg?branch=master)](https://travis-ci.org/rollbrettler/convert-videos)
 
 ## Build
 ```
