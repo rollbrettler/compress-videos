@@ -2,7 +2,7 @@ require 'fileutils'
 require 'streamio-ffmpeg'
 require 'ruby-progressbar'
 
-class CompressVideo
+class ConvertVideo
   attr_reader :source_folder,
               :destination_folder,
               :temp_folder,
@@ -50,7 +50,7 @@ class CompressVideo
 
   def find_file_to_convert
     @file_path = Dir["#{source_folder}**/*.mkv"].first || ''
-    @file_name = file_path.split(/\//).last || ''
+    @file_name = file_path.split(%r{\/}).last || ''
   end
 
   def define_temporary_and_destination_path

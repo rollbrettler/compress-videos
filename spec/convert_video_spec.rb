@@ -1,7 +1,7 @@
-require 'compress-video'
+require 'convert-video'
 require 'fakefs/spec_helpers'
 
-RSpec.describe CompressVideo do
+RSpec.describe ConvertVideo do
   include FakeFS::SpecHelpers
 
   let(:file_array) do
