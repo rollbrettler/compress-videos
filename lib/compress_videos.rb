@@ -3,6 +3,9 @@ require 'streamio-ffmpeg'
 require 'ruby-progressbar'
 
 module CompressVideos
+  # Compressor class that takes 3 folder paths as parameter
+  # and moves the first video to a temporary folder, compresses
+  # this file and moves it to the destination
   class Compressor
     attr_reader :source_folder,
                 :destination_folder,
