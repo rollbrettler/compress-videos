@@ -1,12 +1,14 @@
 require 'fileutils'
 require 'streamio-ffmpeg'
 require 'ruby-progressbar'
+require 'compress_video/inspector'
 
 module CompressVideos
   # Compressor class that takes 3 folder paths as parameter
   # and moves the first video to a temporary folder, compresses
   # this file and moves it to the destination
   class Compressor
+    extend CompressVideos::Inspector
     attr_reader :source_folder,
                 :destination_folder,
                 :temp_folder,
@@ -23,20 +25,6 @@ module CompressVideos
       @temp_folder = args[:temp_folder]
       find_file_to_compress
       define_temporary_and_destination_path
-    end
-
-    def inspect
-      puts SEPARATOR_LINE
-      puts "Source folder: #{source_folder}"
-      puts "Destination folder: #{destination_folder}"
-      puts "Temp folder: #{temp_folder}"
-      puts SEPARATOR_LINE
-      puts "File path: #{file_path}"
-      puts "File name: #{file_name}"
-      puts SEPARATOR_LINE
-      puts "Temporary file path: #{temp_file_path}"
-      puts "Destination file path: #{destination_file_path}"
-      puts SEPARATOR_LINE
     end
 
     def run

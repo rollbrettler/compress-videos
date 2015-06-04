@@ -1,7 +1,3 @@
 TooManyStatements:
   exclude:
     - CompressVideos::Compressor#compress_file
-    - CompressVideos::Compressor#inspect
-DuplicateMethodCall:
-  exclude:
-    - CompressVideos::Compressor#inspect
