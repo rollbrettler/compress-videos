@@ -1,10 +1,10 @@
 IrresponsibleModule:
   exclude:
-    - ConvertVideo
+    - CompressVideos::Compressor
 TooManyStatements:
   exclude:
-    - ConvertVideo#compress_file
-    - ConvertVideo#inspect
+    - CompressVideos::Compressor#compress_file
+    - CompressVideos::Compressor#inspect
 DuplicateMethodCall:
   exclude:
-    - ConvertVideo#inspect
+    - CompressVideos::Compressor#inspect

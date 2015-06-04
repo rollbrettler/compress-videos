@@ -1,4 +1,13 @@
 #!/bin/bash
+
+# build gem
+cd /src
+gem install bundler
+bundle install
+gem build compress-videos.gemspec
+mv compress-videos-$(echo $VERSION).gem /build/compress-videos.gem
+
+# install ffmpeg
 cd /ffmpeg_sources
 wget http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz
 tar xzvf yasm-1.3.0.tar.gz
