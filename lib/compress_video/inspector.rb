@@ -1,10 +1,14 @@
 module CompressVideos
   module Inspector
+    SEPARATOR_LINE = '==========================================='
+
     def inspect
       inspect_input_paths
       inspect_file_path
       inspect_output_paths
     end
+
+    private
 
     def inspect_input_paths
       puts SEPARATOR_LINE

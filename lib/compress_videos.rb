@@ -17,8 +17,6 @@ module CompressVideos
                 :temp_file_path,
                 :destination_file_path
 
-    SEPARATOR_LINE = '==========================================='
-
     def initialize(args = {})
       @source_folder = args[:source_folder]
       @destination_folder = args[:destination_folder]
@@ -31,7 +29,7 @@ module CompressVideos
       create_temp_folder
       move_file_to_temp_path
       create_destination_folder
-      compress_file
+      compress_video
     end
 
     private
@@ -42,7 +40,7 @@ module CompressVideos
 
     def find_file_to_compress
       @file_path = Dir["#{source_folder}**/*.mkv"].first || ''
-      @file_name = file_path.split(/\//).last || ''
+      @file_name = File.basename(file_path) || ''
     end
 
     def define_temporary_and_destination_path
@@ -75,18 +73,22 @@ module CompressVideos
       }
     end
 
-    def compress_file
-      @progressbar = ProgressBar.create(progress_bar_settings)
+    def compress_video
       movie = FFMPEG::Movie.new(temp_file_path)
       if movie.valid?
-        movie.transcode(destination_file_path,  custom: '-map 0 -c:v libx264 -c:a copy -c:s copy') do |progress|
-          progressbar.progress = progress.to_f * 100
-        end
+        transcode_video
       else
         revert_file_move
       end
     rescue
       revert_file_move
+    end
+
+    def transcode_video
+      @progressbar = ProgressBar.create(progress_bar_settings)
+      movie.transcode(destination_file_path,  custom: '-map 0 -c:v libx264 -c:a copy -c:s copy') do |progress|
+        progressbar.progress = progress.to_f * 100
+      end
     end
   end
 end

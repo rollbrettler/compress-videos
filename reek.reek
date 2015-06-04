@@ -1,3 +1,0 @@
-TooManyStatements:
-  exclude:
-    - CompressVideos::Compressor#compress_file
