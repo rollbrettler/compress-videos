@@ -75,9 +75,9 @@ make install
 make clean
 
 cd /ffmpeg_sources
-wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
-tar xjvf ffmpeg-snapshot.tar.bz2
-cd ffmpeg
+wget http://ffmpeg.org/releases/ffmpeg-2.6.tar.bz2
+tar xjvf ffmpeg-2.6.tar.bz2
+cd ffmpeg-2.6
 PATH="/build:$PATH" PKG_CONFIG_PATH="/ffmpeg_build/lib/pkgconfig" ./configure \
   --prefix="/ffmpeg_build" \
   --pkg-config-flags="--static" \

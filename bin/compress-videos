@@ -1,16 +1,20 @@
 #!/usr/bin/env ruby
 
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path('../../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'compress_videos'
 
-compress_video = CompressVideos::Compressor.new(
-  source_folder: '/source/',
-  destination_folder: '/destination/',
-  temp_folder: '/tmp/'
-)
+begin
+  compress_video = CompressVideos::Compressor.new(
+    source_folder: '/source/',
+    destination_folder: '/destination/',
+    temp_folder: '/tmp/'
+  )
 
-compress_video.inspect
+  compress_video.inspect
 
-compress_video.run
+  compress_video.run
+rescue Exception => e
+  puts e
+end

@@ -1,7 +1,7 @@
 require 'fileutils'
 require 'streamio-ffmpeg'
 require 'ruby-progressbar'
-require 'compress_video/inspector'
+require 'compress_videos/inspector'
 
 module CompressVideos
   # Compressor class that takes 3 folder paths as parameter
@@ -74,20 +74,25 @@ module CompressVideos
     end
 
     def compress_video
-      movie = FFMPEG::Movie.new(temp_file_path)
-      if movie.valid?
+      @movie = FFMPEG::Movie.new(temp_file_path)
+      if @movie.valid?
         transcode_video
       else
+        puts @movie.video_stream
+        puts @movie.audio_stream
+        puts "File not valid"
         revert_file_move
       end
-    rescue
+    rescue Exception => e
+      puts e
       revert_file_move
     end
 
     def transcode_video
-      @progressbar = ProgressBar.create(progress_bar_settings)
-      movie.transcode(destination_file_path,  custom: '-map 0 -c:v libx264 -c:a copy -c:s copy') do |progress|
-        progressbar.progress = progress.to_f * 100
+      # @progressbar = ProgressBar.create(progress_bar_settings)
+      @movie.transcode(destination_file_path,  custom: '-map 0 -c:v libx264 -c:a copy -c:s copy') do |progress|
+        # progressbar.progress = progress.to_f * 100
+        puts progress
       end
     end
   end

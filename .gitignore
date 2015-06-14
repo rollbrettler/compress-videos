@@ -3,3 +3,4 @@
 .bundle
 build
 Gemfile.lock
+fixtures
