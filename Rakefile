@@ -24,10 +24,10 @@ end
 
 task :build_binaries do
   sh 'docker build -f build.Dockerfile -t="build-binaries" .'
-  sh "docker run --rm --env VERSION=#{CompressVideos::VERSION} -v $(pwd)/build:/build build-binaries"
+  sh "docker run --rm --env VERSION=#{CompressVideos::VERSION} -v $(pwd)/build:/build -v $(pwd)/ffmpeg_build:/ffmpeg_build build-binaries"
 end
 
 task :build_docker_image do
   sh 'docker build -t="rollbrettler/compress-videos" .'
-  sh 'docker save rollbrettler/compress-videos > ./image/compress-videos.tar'
+  # sh 'docker save rollbrettler/compress-videos > ./image/compress-videos.tar'
 end

@@ -16,6 +16,7 @@ ADD . /src
 RUN chmod +x /src/build.sh
 
 VOLUME ["/build"]
+VOLUME ["/ffmpeg_build"]
 WORKDIR /build
 
 CMD ["/src/build.sh"]
