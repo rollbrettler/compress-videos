@@ -24,7 +24,14 @@ end
 
 task :build_binaries do
   sh 'docker build -f build.Dockerfile -t="build-binaries" .'
-  sh "docker run --rm --env VERSION=#{CompressVideos::VERSION} -v $(pwd)/build:/build -v $(pwd)/ffmpeg_build:/ffmpeg_build build-binaries"
+  sh <<-sh
+    docker run \
+      --rm \
+      --env VERSION=#{CompressVideos::VERSION} \
+      -v $(pwd)/build:/build \
+      -v $(pwd)/ffmpeg_build:/ffmpeg_build \
+      build-binaries
+  sh
 end
 
 task :build_docker_image do
@@ -33,5 +40,14 @@ task :build_docker_image do
 end
 
 task :test_image do
-  sh 'docker run -t -i --rm -v $(pwd)/fixtures/src:/source -v $(pwd)/fixtures/dest:/destination -v $(pwd)/fixtures/tmp:/tmp rollbrettler/compress-videos'
+  sh <<-sh
+    docker run \
+      -t \
+      -i \
+      --rm \
+      -v $(pwd)/fixtures/src:/source \
+      -v $(pwd)/fixtures/dest:/destination \
+      -v $(pwd)/fixtures/tmp:/tmp \
+      rollbrettler/compress-videos
+    sh
 end
