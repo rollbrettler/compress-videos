@@ -31,3 +31,7 @@ task :build_docker_image do
   sh 'docker build -t="rollbrettler/compress-videos" .'
   # sh 'docker save rollbrettler/compress-videos > ./image/compress-videos.tar'
 end
+
+task :test_image do
+  sh 'docker run -t -i --rm -v $(pwd)/fixtures/src:/source -v $(pwd)/fixtures/dest:/destination -v $(pwd)/fixtures/tmp:/tmp rollbrettler/compress-videos'
+end
