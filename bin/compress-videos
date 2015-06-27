@@ -15,6 +15,6 @@ begin
   compress_video.inspect
 
   compress_video.run
-rescue Exception => e
-  puts e
+rescue => error
+  puts error
 end
