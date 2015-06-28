@@ -22,6 +22,7 @@ module CompressVideos
       @source_folder = args[:source_folder]
       @destination_folder = args[:destination_folder]
       @temp_folder = args[:temp_folder]
+      @logger ||= Logger.new(STDOUT)
       find_file_to_compress
       define_temporary_and_destination_path
     end
@@ -50,7 +51,7 @@ module CompressVideos
     end
 
     def move_file_to_temp_path
-      logger.info("#{file_path} --> #{temp_file_path}")
+      @logger.info("#{file_path} --> #{temp_file_path}")
       FileUtils.mv(file_path, temp_file_path)
     end
 
@@ -63,7 +64,7 @@ module CompressVideos
     end
 
     def revert_file_move
-      logger.info("#{temp_file_path} --> #{file_path}")
+      @logger.info("#{temp_file_path} --> #{file_path}")
       FileUtils.mv(temp_file_path, file_path)
     end
 
@@ -81,20 +82,20 @@ module CompressVideos
       if @movie.valid?
         transcode_video
       else
-        logger.info('File not valid')
+        @logger.info('File not valid')
         revert_file_move
       end
     rescue => error
-      logger.info(error)
+      @logger.info(error)
       revert_file_move
     end
 
     def transcode_video
-      # @progressbar = ProgressBar.create(progress_bar_settings)
+      @progressbar = ProgressBar.create(progress_bar_settings)
       @movie.transcode(destination_file_path,  custom: '-map 0 -c:v libx264 -c:a copy -c:s copy') do |progress|
-        # progressbar.progress = progress.to_f * 100
-        logger.info(progress)
+        @progressbar.progress = progress.to_f * 100
       end
+      @logger.info("Finished transcoding of #{destination_file_path}")
     end
   end
 end
