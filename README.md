@@ -1,6 +1,8 @@
 Automatically compress videos from a given folder to a destination folder.
 
 [![Build Status](https://travis-ci.org/rollbrettler/compress-videos.svg?branch=master)](https://travis-ci.org/rollbrettler/compress-videos)
+[![Code Climate](https://codeclimate.com/github/rollbrettler/compress-videos/badges/gpa.svg)](https://codeclimate.com/github/rollbrettler/compress-videos)
+[![Test Coverage](https://codeclimate.com/github/rollbrettler/compress-videos/badges/coverage.svg)](https://codeclimate.com/github/rollbrettler/compress-videos/coverage)
 
 ## Build
 ```
