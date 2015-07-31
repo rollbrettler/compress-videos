@@ -29,15 +29,8 @@ RUN mkdir ~/ffmpeg_sources \
     && hash -r \
     && rm -rf ~/ffmpeg_sources
 
-# RUN apt-get -y --force-yes install libav-tools
-# RUN mkdir -p /ffmpeg_build /build
-# ADD ffmpeg_build/ /ffmpeg_build
-# ADD build/ /usr/bin
-# ADD build/ /build
-
-RUN mkdir -p /test
-ADD build/ /test
-RUN gem install /test/compress-videos.gem
+ADD build/ /
+RUN gem install /compress-videos.gem
 
 VOLUME ["/source", "/destination", "/tmp"]
 WORKDIR /
