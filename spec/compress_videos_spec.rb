@@ -20,8 +20,6 @@ RSpec.describe CompressVideos::Compressor do
     )
   end
 
-  let(:mapper) { double('mapper') }
-
   before(:each) do
     allow(Dir).to receive(:glob).and_return(file_array)
   end
