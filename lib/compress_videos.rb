@@ -18,10 +18,10 @@ module CompressVideos
                 :temp_file_path,
                 :destination_file_path
 
-    def initialize(args = {})
-      @source_folder = args[:source_folder]
-      @destination_folder = args[:destination_folder]
-      @temp_folder = args[:temp_folder]
+    def initialize(source_folder:, destination_folder:, temp_folder:)
+      @source_folder = source_folder
+      @destination_folder = destination_folder
+      @temp_folder = temp_folder
       @logger ||= Logger.new(STDOUT)
       find_file_to_compress
       define_temporary_and_destination_path
