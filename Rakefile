@@ -36,8 +36,6 @@ end
 
 task :build_docker_image do
   sh 'docker build -t="rollbrettler/compress-videos" .'
-  sh 'docker save rollbrettler/compress-videos > ./image/compress-videos.tar'
-  sh "docker tag rollbrettler/compress-videos rollbrettler/compress-videos:#{CompressVideos::VERSION}"
 end
 
 task :test_image do
@@ -50,6 +48,11 @@ task :test_image do
       -v $(pwd)/fixtures/src:/source \
       -v $(pwd)/fixtures/dest:/destination \
       -v $(pwd)/fixtures/tmp:/tmp \
-      rollbrettler/compress-videos:#{CompressVideos::VERSION}
+      rollbrettler/compress-videos
     sh
+end
+
+task :release do
+  sh "docker tag -f rollbrettler/compress-videos rollbrettler/compress-videos:#{CompressVideos::VERSION}"
+  sh "docker save rollbrettler/compress-videos:#{CompressVideos::VERSION} > ./image/compress-videos.tar"
 end

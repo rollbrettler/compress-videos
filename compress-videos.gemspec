@@ -10,7 +10,12 @@ Gem::Specification.new do |spec|
   spec.description = 'Compresses the first video in a given folder and keeps all subtitles and audio layers'
   spec.authors     = ['Tim Petter']
   spec.email       = 'tim@timpetter.de'
-  spec.files       = ['lib/compress_videos.rb', 'lib/version.rb', 'lib/compress_videos/inspector.rb']
+  spec.files       = [ 'lib/compress_videos.rb',
+                       'lib/version.rb',
+                       'lib/compress_videos/inspector.rb',
+                       'lib/compress_videos/compressor/ffmpeg.rb',
+                       'lib/compress_videos/models/video.rb'
+                     ]
   spec.homepage    = 'https://github.com/rollbrettler/compress-videos'
   spec.license     = 'MIT'
 

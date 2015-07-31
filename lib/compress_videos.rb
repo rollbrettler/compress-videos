@@ -2,6 +2,8 @@ require 'fileutils'
 require 'streamio-ffmpeg'
 require 'ruby-progressbar'
 require 'compress_videos/inspector'
+require 'compress_videos/compressor/ffmpeg'
+require 'compress_videos/models/video'
 require 'logger'
 
 module CompressVideos
@@ -11,7 +13,7 @@ module CompressVideos
   class Compressor
     extend CompressVideos::Inspector
 
-    def initialize(source_folder:, destination_folder:, temp_folder:, compressor: CompressVideos::Compressor::Ffmpeg)
+    def initialize(source_folder:, destination_folder:, temp_folder:, compressor: CompressVideos::Ffmpeg)
       @video = CompressVideos::Video.new(
                                 source_folder: source_folder,
                                 destination_folder: destination_folder,
@@ -25,6 +27,7 @@ module CompressVideos
       prepare_folder
       move_file_to_temp_path
       @compressor.compress_video
+      @logger.info("Finished transcoding of #{@video.destination_file_path}")
     rescue => error
       @logger.info(error)
       revert_file_move
