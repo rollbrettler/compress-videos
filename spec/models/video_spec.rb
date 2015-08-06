@@ -1,9 +1,6 @@
 require 'compress_videos'
-require 'fakefs/spec_helpers'
 
-RSpec.describe CompressVideos::Compressor do
-  include FakeFS::SpecHelpers
-
+RSpec.describe CompressVideos::Video do
   let(:file_array) do
     [
       '/source/_sort/movie/Movie1.mkv',

@@ -1,7 +1,6 @@
 require 'fileutils'
 require 'streamio-ffmpeg'
 require 'ruby-progressbar'
-require 'compress_videos/inspector'
 require 'compress_videos/compressor/ffmpeg'
 require 'compress_videos/models/video'
 require 'logger'
@@ -11,8 +10,6 @@ module CompressVideos
   # and moves the first video to a temporary folder, compresses
   # this file and moves it to the destination
   class Compressor
-    extend CompressVideos::Inspector
-
     def initialize(source_folder:, destination_folder:, temp_folder:, compressor: CompressVideos::Ffmpeg)
       @video = CompressVideos::Video.new(
                                 source_folder: source_folder,

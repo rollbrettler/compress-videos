@@ -11,24 +11,23 @@ module CompressVideos
     end
 
     def temporary_file_present?
-      Dir["#{temp_folder}**/*.mkv"].first.present?
+      Dir.glob("#{@temp_folder}**/*.mkv").first.present?
     end
 
     def file_path
-      @file_path ||= Dir["#{source_folder}**/*.mkv"].first || ''
+      @file_path ||= Dir.glob("#{@source_folder}**/*.mkv").first || ''
     end
 
     def file_name
-      @file_name = File.basename(file_path) || ''
+      @file_name ||= File.basename(file_path) || ''
     end
 
     def temp_file_path
-      @temp_file_path ||= @temp_folder + @file_name
-      @destination_file_path = destination_folder + file_path.gsub(source_folder, '')
+      @temp_file_path ||= @temp_folder + file_name
     end
 
     def destination_file_path
-      @destination_file_path ||= destination_folder + file_path.gsub(source_folder, '')
+      @destination_file_path ||= @destination_folder + file_path.gsub(@source_folder, '')
     end
   end
 end
