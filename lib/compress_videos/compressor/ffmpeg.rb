@@ -4,16 +4,7 @@ module CompressVideos
       @video_file = video_file
     end
 
-    def progress_bar_settings
-      {
-        title: 'Progress',
-        format: '%a %bᗧ%i %p%% %t',
-        progress_mark: ' ',
-        remainder_mark: '･'
-      }
-    end
-
-    def compress_video
+    def compress
       @movie = FFMPEG::Movie.new(@video_file.temp_file_path)
       if @movie.valid?
         transcode_video
@@ -22,6 +13,17 @@ module CompressVideos
       end
     rescue => error
       raise error
+    end
+
+    private
+
+    def progress_bar_settings
+      {
+        title: 'Progress',
+        format: '%a %bᗧ%i %p%% %t',
+        progress_mark: ' ',
+        remainder_mark: '･'
+      }
     end
 
     def transcode_video

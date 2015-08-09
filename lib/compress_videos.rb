@@ -23,7 +23,7 @@ module CompressVideos
     def run
       prepare_folder
       move_file_to_temp_path
-      @compressor.compress_video
+      @compressor.compress
       @logger.info("Finished transcoding of #{@video.destination_file_path}")
     rescue => error
       @logger.info(error)
