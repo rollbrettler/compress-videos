@@ -29,6 +29,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'fakefs'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'pry'
-  spec.add_runtime_dependency 'streamio-ffmpeg'
-  spec.add_runtime_dependency 'ruby-progressbar'
+  spec.add_runtime_dependency 'streamio-ffmpeg', '~> 1.0.0'
+  spec.add_runtime_dependency 'ruby-progressbar', '~> 1.7.5'
 end
