@@ -3,3 +3,5 @@
 .bundle
 build
 Gemfile.lock
+fixtures
+ffmpeg_build

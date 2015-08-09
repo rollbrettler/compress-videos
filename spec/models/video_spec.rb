@@ -1,9 +1,6 @@
 require 'compress_videos'
-require 'fakefs/spec_helpers'
 
-RSpec.describe CompressVideos::Compressor do
-  include FakeFS::SpecHelpers
-
+RSpec.describe CompressVideos::Video do
   let(:file_array) do
     [
       '/source/_sort/movie/Movie1.mkv',
@@ -14,13 +11,11 @@ RSpec.describe CompressVideos::Compressor do
 
   let(:compress_video) do
     described_class.new(
-      source_folder: '/source/',
-      destination_folder: '/destination/',
-      temp_folder: '/tmp/'
+      source_folder: '/source',
+      destination_folder: '/destination',
+      temp_folder: '/tmp'
     )
   end
-
-  let(:mapper) { double('mapper') }
 
   before(:each) do
     allow(Dir).to receive(:glob).and_return(file_array)
@@ -31,9 +26,9 @@ RSpec.describe CompressVideos::Compressor do
   end
 
   it 'gets 3 directory strings passed' do
-    expect(compress_video.source_folder).to eq('/source/')
-    expect(compress_video.destination_folder).to eq('/destination/')
-    expect(compress_video.temp_folder).to eq('/tmp/')
+    expect(compress_video.source_folder).to eq('/source')
+    expect(compress_video.destination_folder).to eq('/destination')
+    expect(compress_video.temp_folder).to eq('/tmp')
   end
 
   it 'automatically finds the file name and file path' do

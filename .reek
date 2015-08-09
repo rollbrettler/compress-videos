@@ -1,0 +1,13 @@
+# TODO: Remove as many of those exclusions as possible
+TooManyStatements:
+  exclude:
+    - "CompressVideos::Compressor#run"
+    - "CompressVideos::Compressor#initialize"
+IrresponsibleModule:
+  exclude:
+    - "CompressVideos::Ffmpeg"
+    - "CompressVideos::Video"
+DuplicateMethodCall:
+  exclude:
+    - "CompressVideos::Compressor#move_file_to_temp_path"
+    - "CompressVideos::Compressor#revert_file_move"
