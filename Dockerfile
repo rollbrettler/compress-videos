@@ -2,6 +2,8 @@ FROM ruby:2.2-wheezy
 
 MAINTAINER Tim Petter <tim@timpetter.de>
 
+ENV FFMPEG_VERSION ffmpeg-2.7.2
+
 RUN apt-get -y --force-yes update
 RUN apt-get install --assume-yes --quiet --force-yes wget yasm autoconf automake build-essential libass-dev \
      libfreetype6-dev libgpac-dev libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev \
@@ -9,9 +11,9 @@ RUN apt-get install --assume-yes --quiet --force-yes wget yasm autoconf automake
 
 RUN mkdir ~/ffmpeg_sources \
     && cd ~/ffmpeg_sources \
-    && wget http://ffmpeg.org/releases/ffmpeg-2.6.2.tar.bz2 \
-    && tar xjvf ffmpeg-2.6.2.tar.bz2 >/dev/null 2>&1 \
-    && cd ffmpeg-2.6.2 \
+    && wget http://ffmpeg.org/releases/"$FFMPEG_VERSION".tar.bz2 \
+    && tar xjvf "$FFMPEG_VERSION".tar.bz2 >/dev/null 2>&1 \
+    && cd "$FFMPEG_VERSION" \
     && ./configure \
       --pkg-config-flags="--static" \
       --bindir="/usr/bin" \
