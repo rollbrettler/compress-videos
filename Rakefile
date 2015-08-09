@@ -4,14 +4,14 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'fileutils'
 require 'version'
 
-task default: %w(syntax rspec rubocop reek)
+task default: %w(syntax spec rubocop reek)
 task build: %w(build_binaries build_docker_image test_image)
 
 task :syntax do
   sh 'ruby -c **/*.rb'
 end
 
-task :rspec do
+task :spec do
   sh 'rspec spec/'
 end
 
@@ -38,8 +38,11 @@ task :build_docker_image do
   sh 'docker build -t="rollbrettler/compress-videos" .'
 end
 
-task :test_image do
+task :copy_test_file do
   FileUtils.cp('fixtures/test1.mkv', 'fixtures/src/test1.mkv')
+end
+
+task :test_image => :copy_test_file do
   sh <<-sh
     docker run \
       -t \
@@ -50,6 +53,10 @@ task :test_image do
       -v $(pwd)/fixtures/tmp:/tmp \
       rollbrettler/compress-videos
     sh
+end
+
+task :test_gem => :copy_test_file do
+  sh 'bin/compress-videos $PWD/fixtures/src $PWD/fixtures/dest $PWD/fixtures/tmp'
 end
 
 task :release do

@@ -23,11 +23,11 @@ module CompressVideos
     end
 
     def temp_file_path
-      @temp_file_path ||= @temp_folder + file_name
+      @temp_file_path ||= File.join(@temp_folder, file_name)
     end
 
     def destination_file_path
-      @destination_file_path ||= @destination_folder + file_path.gsub(@source_folder, '')
+      @destination_file_path ||= File.join(@destination_folder, file_path.gsub(@source_folder, ''))
     end
   end
 end

@@ -11,9 +11,9 @@ RSpec.describe CompressVideos::Video do
 
   let(:compress_video) do
     described_class.new(
-      source_folder: '/source/',
-      destination_folder: '/destination/',
-      temp_folder: '/tmp/'
+      source_folder: '/source',
+      destination_folder: '/destination',
+      temp_folder: '/tmp'
     )
   end
 
@@ -26,9 +26,9 @@ RSpec.describe CompressVideos::Video do
   end
 
   it 'gets 3 directory strings passed' do
-    expect(compress_video.source_folder).to eq('/source/')
-    expect(compress_video.destination_folder).to eq('/destination/')
-    expect(compress_video.temp_folder).to eq('/tmp/')
+    expect(compress_video.source_folder).to eq('/source')
+    expect(compress_video.destination_folder).to eq('/destination')
+    expect(compress_video.temp_folder).to eq('/tmp')
   end
 
   it 'automatically finds the file name and file path' do

@@ -30,6 +30,11 @@ module CompressVideos
       revert_file_move
     end
 
+    def revert_file_move
+      @logger.info("#{@video.temp_file_path} --> #{@video.file_path}")
+      FileUtils.mv(@video.temp_file_path, @video.file_path)
+    end
+
     private
 
     def prepare_folder
@@ -48,11 +53,6 @@ module CompressVideos
 
     def create_temp_folder
       FileUtils.mkdir_p(@video.temp_file_path.gsub(@video.file_name, ''))
-    end
-
-    def revert_file_move
-      @logger.info("#{@video.temp_file_path} --> #{@video.file_path}")
-      FileUtils.mv(@video.temp_file_path, @video.file_path)
     end
   end
 end

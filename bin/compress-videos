@@ -5,16 +5,20 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'compress_videos'
 
+source_folder = ARGV[0] || '/source'
+destination_folder = ARGV[1] || '/destination'
+temp_folder = ARGV[2] || '/tmp'
+
 begin
   compress_video = CompressVideos::Compressor.new(
-    source_folder: '/source/',
-    destination_folder: '/destination/',
-    temp_folder: '/tmp/'
+    source_folder: source_folder,
+    destination_folder: destination_folder,
+    temp_folder: temp_folder
   )
-
-  compress_video.inspect
 
   compress_video.run
 rescue => error
   puts error
+ensure
+  compress_video.revert_file_move
 end
