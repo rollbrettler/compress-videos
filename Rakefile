@@ -42,7 +42,7 @@ task :copy_test_file do
   FileUtils.cp('fixtures/test1.mkv', 'fixtures/src/test1.mkv')
 end
 
-task :test_image => :copy_test_file do
+task test_image: :copy_test_file do
   sh <<-sh
     docker run \
       -t \
@@ -55,7 +55,7 @@ task :test_image => :copy_test_file do
     sh
 end
 
-task :test_gem => :copy_test_file do
+task test_gem: :copy_test_file do
   sh 'bin/compress-videos $PWD/fixtures/src $PWD/fixtures/dest $PWD/fixtures/tmp'
 end
 
