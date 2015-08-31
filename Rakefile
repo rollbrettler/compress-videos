@@ -3,6 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'fileutils'
 require 'version'
+require 'pry'
 
 task default: %w(syntax spec rubocop reek)
 task build: %w(build_binaries build_docker_image test_image)
@@ -40,6 +41,15 @@ end
 
 task :copy_test_file do
   FileUtils.cp('fixtures/test1.mkv', 'fixtures/src/test1.mkv')
+end
+
+task :prepare_test_file do
+  #sh 'curl -L http://sourceforge.net/projects/matroska/files/test_files/matroska_test_w1_1.zip -o fixtures/test.zip'
+  Zip::File.open('fixtures/test.zip') do |zipfile|
+    zipfile.each do |file|
+      binding.pry
+    end
+  end
 end
 
 task test_image: :copy_test_file do
