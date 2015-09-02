@@ -66,5 +66,8 @@ end
 
 task :release do
   sh "docker tag -f rollbrettler/compress-videos rollbrettler/compress-videos:#{CompressVideos::VERSION}"
-  sh "docker save rollbrettler/compress-videos:#{CompressVideos::VERSION} > ./image/compress-videos.tar"
+  sh <<-sh
+    docker save rollbrettler/compress-videos:#{CompressVideos::VERSION} \
+    > ./image/compress-videos-#{CompressVideos::VERSION}.tar
+  sh
 end
