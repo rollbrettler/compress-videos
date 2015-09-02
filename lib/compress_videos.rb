@@ -11,11 +11,9 @@ module CompressVideos
   # this file and moves it to the destination
   class Compressor
     def initialize(source_folder:, destination_folder:, temp_folder:, compressor: CompressVideos::Ffmpeg)
-      @video = CompressVideos::Video.new(
-                                source_folder: source_folder,
-                                destination_folder: destination_folder,
-                                temp_folder: temp_folder
-                               )
+      @video = CompressVideos::Video.new(source_folder: source_folder,
+                                         destination_folder: destination_folder,
+                                         temp_folder: temp_folder)
       @logger ||= Logger.new(STDOUT)
       @compressor = compressor.new(@video)
     end
