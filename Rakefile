@@ -5,7 +5,7 @@ require 'fileutils'
 require 'version'
 require 'pry'
 
-task default: %w(syntax spec rubocop reek)
+task default: %w(syntax spec rubocop reek test_binary)
 task build: %w(build_binaries build_docker_image test_image)
 
 task :syntax do
@@ -39,17 +39,12 @@ task :build_docker_image do
   sh 'docker build -t="rollbrettler/compress-videos" .'
 end
 
-task :copy_test_file do
+task copy_test_file: :prepare_test_file do
   FileUtils.cp('fixtures/test1.mkv', 'fixtures/src/test1.mkv')
 end
 
 task :prepare_test_file do
-  #sh 'curl -L http://sourceforge.net/projects/matroska/files/test_files/matroska_test_w1_1.zip -o fixtures/test.zip'
-  Zip::File.open('fixtures/test.zip') do |zipfile|
-    zipfile.each do |file|
-      binding.pry
-    end
-  end
+  sh 'curl -L https://samples.ffmpeg.org/Matroska/multiple_tracks.mkv -o fixtures/test1.mkv'
 end
 
 task test_image: :copy_test_file do
@@ -65,7 +60,7 @@ task test_image: :copy_test_file do
     sh
 end
 
-task test_gem: :copy_test_file do
+task test_binary: :copy_test_file do
   sh 'bin/compress-videos $PWD/fixtures/src $PWD/fixtures/dest $PWD/fixtures/tmp'
 end
 

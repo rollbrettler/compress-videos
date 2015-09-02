@@ -11,3 +11,6 @@ DuplicateMethodCall:
   exclude:
     - "CompressVideos::Compressor#move_file_to_temp_path"
     - "CompressVideos::Compressor#revert_file_move"
+TooManyInstanceVariables:
+  exclude:
+    - "CompressVideos::Video"

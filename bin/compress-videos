@@ -19,6 +19,5 @@ begin
   compress_video.run
 rescue => error
   puts error
-ensure
   compress_video.revert_file_move
 end
