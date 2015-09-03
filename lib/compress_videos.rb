@@ -14,7 +14,7 @@ module CompressVideos
       @video = CompressVideos::Video.new(source_folder: source_folder,
                                          destination_folder: destination_folder,
                                          temp_folder: temp_folder)
-      @logger ||= Logger.new(STDOUT)
+      @logger = Logger.new(STDOUT)
       @compressor = compressor.new(@video)
     end
 
@@ -23,9 +23,6 @@ module CompressVideos
       move_file_to_temp_path
       @compressor.compress
       @logger.info("Finished transcoding of #{@video.destination_file_path}")
-    rescue => error
-      @logger.info(error)
-      revert_file_move
     end
 
     def revert_file_move
