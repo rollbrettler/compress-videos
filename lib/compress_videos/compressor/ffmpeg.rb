@@ -11,8 +11,6 @@ module CompressVideos
       else
         fail 'File not valid'
       end
-    rescue => error
-      raise error
     end
 
     private

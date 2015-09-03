@@ -10,10 +10,6 @@ module CompressVideos
       @temp_folder = temp_folder
     end
 
-    def temporary_file_present?
-      Dir.glob("#{@temp_folder}**/*.mkv").first.present?
-    end
-
     def file_path
       @file_path ||= Dir.glob("#{@source_folder}**/*.mkv").first || ''
     end
