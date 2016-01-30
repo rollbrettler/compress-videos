@@ -2,7 +2,7 @@ FROM ruby:2.2-wheezy
 
 MAINTAINER Tim Petter <tim@timpetter.de>
 
-ENV FFMPEG_VERSION ffmpeg-2.7.2
+ENV FFMPEG_VERSION ffmpeg-2.8.5
 
 RUN apt-get -y --force-yes update
 RUN apt-get install --assume-yes --quiet --force-yes wget yasm autoconf automake build-essential libass-dev \

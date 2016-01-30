@@ -32,7 +32,7 @@ module CompressVideos
     end
 
     def configuration
-      { custom: '-map 0 -c:v libx264 -c:a copy -c:s copy' }
+      { custom: '-map 0 -c:v libx264 -preset slower -c:a copy -c:s copy' }
     end
   end
 end
