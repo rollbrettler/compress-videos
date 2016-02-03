@@ -6,11 +6,8 @@ module CompressVideos
 
     def compress
       @movie = FFMPEG::Movie.new(@video_file.temp_file_path)
-      if @movie.valid?
-        transcode_video
-      else
-        fail 'File not valid'
-      end
+      return transcode_video if @movie.valid?
+      fail 'File not valid'
     end
 
     private
