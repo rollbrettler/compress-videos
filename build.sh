@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/busybox ash
 
 # build gem
 cd /src

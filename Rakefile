@@ -31,7 +31,8 @@ task :build_binaries do
       --rm \
       --env VERSION=#{CompressVideos::VERSION} \
       -v $(pwd)/build:/build \
-      build-binaries:#{CompressVideos::VERSION}
+      build-binaries:#{CompressVideos::VERSION} \
+      /src/build.sh
   sh
 end
 
