@@ -24,7 +24,10 @@ module CompressVideos
     def transcode_video
       @progressbar = ProgressBar.create(progress_bar_settings)
       @movie.transcode(@video_file.destination_file_path, configuration) do |progress|
-        @progressbar.progress = progress.to_f * 100
+        progress_value = progress.to_f * 100
+        if progress_value <= 100
+          @progressbar.progress = progress_value
+        end
       end
     end
 
